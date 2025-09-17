@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Cadastrar-se";
+}
+
+<h2 style="text-align: center;">Cadastrar-se</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<form method="post" action="@Url.Action("Cadastrar", "Portal")" style="max-width: 500px; margin: 0 auto;">
+    <div class="form-group mb-3">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="equipe">Equipe</label>
+        <input type="text" class="form-control" id="equipe" name="equipe" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="nivel">Nível</label>
+        <select id="nivel" name="nivel" class="form-control" required>
+            <option value="junior">Júnior</option>
+            <option value="pleno">Pleno</option>
+            <option value="senior">Sênior</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" required />
+    </div>
+
+    <div style="text-align: center;">
+        <button type="submit" class="btn btn-primary px-4">Cadastrar</button>
+    </div>
+</form>

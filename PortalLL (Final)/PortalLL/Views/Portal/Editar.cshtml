@@ -1,0 +1,35 @@
+@model PortalLL.Models.LicaoAprendida
+@{
+    ViewData["Title"] = "Editar Lição Aprendida";
+}
+
+<h2 class="text-center mt-4">Editar Lição Aprendida</h2>
+
+<form method="post" asp-action="Editar" style="max-width: 600px; margin: 0 auto;">
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group mb-3">
+        <label for="Titulo">Título</label>
+        <input asp-for="Titulo" class="form-control" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="Descricao">Descrição</label>
+        <textarea asp-for="Descricao" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="Equipe">Equipe</label>
+        <input asp-for="Equipe" class="form-control" required />
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="Software">Software</label>
+        <input asp-for="Software" class="form-control" required />
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success px-4">Salvar Alterações</button>
+        <a href="@Url.Action("Consultar", "Portal")" class="btn btn-secondary ms-2">Cancelar</a>
+    </div>
+</form>

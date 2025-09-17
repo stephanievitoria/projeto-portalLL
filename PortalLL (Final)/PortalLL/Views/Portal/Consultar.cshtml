@@ -1,0 +1,99 @@
+@model List<PortalLL.Models.LicaoAprendida>
+@using PortalLL.Models
+
+@{
+    ViewData["Title"] = "Consultar Lição Aprendida";
+    var usuarioId = Context.Session.GetInt32("UsuarioId");
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultar Lição Aprendida</title>
+</head>
+<body>
+    <div style="background-color: #003366; padding: 20px; height: 150px; width: 100%;">
+        <h1 style="color: white; text-align: center">Consultar Lição Aprendida</h1>
+    </div>
+
+    <div style="padding: 20px;">
+        <form asp-action="Consultar" method="get">
+            <h4>Buscar Lição Aprendida</h4>
+            <input type="text" name="busca" placeholder="Digite um termo..." style="padding: 8px; width: 300px; margin-top: 10px;" />
+            <br />
+            <button type="submit" style="margin-top: 10px; padding: 10px 20px; background-color: #003366; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Consultar
+            </button>
+        </form>
+
+        @if (Model != null && Model.Any())
+        {
+            <h4 style="margin-top: 30px;">Resultados:</h4>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead style="background-color: #003366; color: white;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Título</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Descrição</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Equipe</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Software</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Data</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Status</th>
+                        <th style="padding: 10px; border: 1px solid #ccc;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ccc;">@item.Titulo</td>
+                            <td style="padding: 10px; border: 1px solid #ccc;">
+                                @item.Descricao
+                                @if (item.Clarificacoes != null && item.Clarificacoes.Any())
+                                {
+                                    <div style="margin-top: 10px;">
+                                        <strong>Clarificações:</strong>
+                                        <ul style="padding-left: 18px; margin-top: 5px;">
+                                            @foreach (var c in item.Clarificacoes)
+                                            {
+                                                <li>@c</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #ccc;">@item.Equipe</td>
+                            <td style="padding: 10px; border: 1px solid #ccc;">@item.Software</td>
+                            <td style="padding: 10px; border: 1px solid #ccc;">@item.DataHora.ToShortDateString()</td>
+                            <td style="padding: 10px; border: 1px solid #ccc; font-weight: bold; color:
+                                @(item.Status == StatusLicao.Aprovada ? "green" :
+                                  item.Status == StatusLicao.Reprovada ? "red" : "#666")">
+                                @item.Status
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #ccc;">
+                                @if (item.UsuarioId == usuarioId)
+                                {
+                                    <text>
+                                        <a href="@Url.Action("Editar", "Portal", new { id = item.Id })">✏️ Editar</a> |
+                                        <a href="@Url.Action("Excluir", "Portal", new { id = item.Id })"
+                                           onclick="return confirm('Tem certeza que deseja excluir esta lição?')">🗑 Excluir</a>
+                                    </text>
+                                }
+                                else
+                                {
+                                    <span style="color: gray;">—</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p style="margin-top: 20px;">Nenhuma lição encontrada para o termo pesquisado.</p>
+        }
+    </div>
+</body>
+</html>

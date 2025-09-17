@@ -1,0 +1,81 @@
+@{
+    ViewData["Title"] = "Portal";
+}
+
+<div style="background-color: #003366; padding: 20px; height: 150px; width: 100%;">
+    <h1 style="color: white; text-align: center">Bem-vindo ao sistema de Gestão de Conhecimento!</h1>
+</div>
+
+<div style="display: flex; align-items: center; padding: 20px;">
+    <input type="text" id="searchInput" onkeydown="checkEnter(event)" placeholder="Pesquisar..." 
+           style="padding: 15px; font-size: 14px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; margin-right: 10px; width: 90%;" />
+    <span style="font-size: 18px; color: #888;">🔍</span>
+</div>
+
+<div style="padding: 20px">
+    <h4>Opções</h4>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="card" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0px 2px 6px rgba(0,0,0,0.1); width: 350px;">
+            <a href="Portal/Criar" style="text-decoration: none; color: black;">
+                <strong>Criar uma Lição Aprendida</strong><br />
+                <span>Criação de documentos de Lição Aprendida para compartilhamento</span><br />
+                <button style="margin-top: 10px; padding: 10px 20px; background-color: #003366; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Ir para a página
+                </button>
+            </a>
+        </div>
+
+        <div class="card" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0px 2px 6px rgba(0,0,0,0.1); width: 350px;">
+            <a href="Portal/Clarificar" style="text-decoration: none; color: black;">
+                <strong>Clarificar uma Lição Aprendida</strong><br />
+                <span>Clarificar uma Lição Aprendida de sua equipe</span><br />
+                <button style="margin-top: 10px; padding: 10px 20px; background-color: #003366; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Ir para a página
+                </button>
+            </a>
+        </div>
+
+        <div class="card" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0px 2px 6px rgba(0,0,0,0.1); width: 350px;">
+            <a href="Portal/Consultar" style="text-decoration: none; color: black;">
+                <strong>Consultar uma Lição Aprendida</strong><br />
+                <span>Consultar Lição Aprendida a partir de um problema ou software</span><br />
+                <button style="margin-top: 10px; padding: 10px 20px; background-color: #003366; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Ir para a página
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkEnter(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchFunction();
+        }
+    }
+
+    function searchFunction() {
+        var query = document.getElementById('searchInput').value.toLowerCase();
+        var cards = document.querySelectorAll('.card');
+
+        cards.forEach(function(card) {
+            var title = card.querySelector('strong').innerText.toLowerCase();
+            var description = card.querySelector('span').innerText.toLowerCase();
+
+            if (title.includes(query) || description.includes(query)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function resetSearch() {
+        document.getElementById('searchInput').value = '';
+        var cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) {
+            card.style.display = 'block';
+        });
+    }
+</script>

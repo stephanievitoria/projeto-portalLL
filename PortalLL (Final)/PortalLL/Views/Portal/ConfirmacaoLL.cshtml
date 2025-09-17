@@ -1,0 +1,30 @@
+@model PortalLL.Models.LicaoAprendida
+
+@{
+    ViewData["Title"] = "Lição Aprendida Criada";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-success text-center">
+                <h4 class="alert-heading">✅ Lição Aprendida criada com sucesso!</h4>
+                <p>Veja abaixo os detalhes registrados:</p>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p><strong>Título:</strong> @Model.Titulo</p>
+                    <p><strong>Descrição:</strong> @Model.Descricao</p>
+                    <p><strong>Equipe:</strong> @Model.Equipe</p>
+                    <p><strong>Software:</strong> @Model.Software</p>
+                    <p><strong>Data:</strong> @Model.DataHora.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "Portal")" class="btn btn-primary">Voltar ao Início</a>
+            </div>
+        </div>
+    </div>
+</div>
